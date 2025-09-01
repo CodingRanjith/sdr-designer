@@ -1,10 +1,17 @@
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Button } from "@/components/ui/button";
 import heroImage from "@/assets/hero-bg.jpg";
+
+interface Ripple {
+  x: number;
+  y: number;
+  id: number;
+}
 
 const Hero = () => {
   const heroRef = useRef<HTMLDivElement>(null);
   const mouseRef = useRef({ x: 0, y: 0 });
+  const [ripples, setRipples] = useState<Ripple[]>([]);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -35,6 +42,36 @@ const Hero = () => {
     }
   }, []);
 
+  // Water ripple click effect
+  useEffect(() => {
+    const handleClick = (e: MouseEvent) => {
+      if (!heroRef.current) return;
+      
+      const rect = heroRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      
+      const newRipple: Ripple = {
+        x,
+        y,
+        id: Date.now() + Math.random()
+      };
+      
+      setRipples(prev => [...prev, newRipple]);
+      
+      // Remove ripple after animation completes
+      setTimeout(() => {
+        setRipples(prev => prev.filter(ripple => ripple.id !== newRipple.id));
+      }, 1000);
+    };
+
+    const current = heroRef.current;
+    if (current) {
+      current.addEventListener('click', handleClick);
+      return () => current.removeEventListener('click', handleClick);
+    }
+  }, []);
+
   const scrollToContact = () => {
     document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
   };
@@ -59,6 +96,21 @@ const Hero = () => {
         <div className="parallax-element absolute top-3/4 right-1/4 w-24 h-24 bg-secondary/20 rounded-full blur-xl animate-float" style={{animationDelay: '2s'}}></div>
         <div className="parallax-element absolute top-1/2 left-3/4 w-20 h-20 bg-accent/20 rounded-full blur-xl animate-float" style={{animationDelay: '4s'}}></div>
       </div>
+
+      {/* Water ripple effects */}
+      {ripples.map((ripple) => (
+        <div
+          key={ripple.id}
+          className="absolute pointer-events-none"
+          style={{
+            left: ripple.x,
+            top: ripple.y,
+            transform: 'translate(-50%, -50%)'
+          }}
+        >
+          <div className="water-ripple-click"></div>
+        </div>
+      ))}
 
       {/* Hero content */}
       <div className="container mx-auto px-6 text-center z-10">
