@@ -1,3 +1,5 @@
+import { Mail, Phone } from "lucide-react";
+
 const Footer = () => {
   return (
     <footer className="py-12 glass-card border-t border-border/50">
@@ -44,7 +46,7 @@ const Footer = () => {
         {/* Bottom */}
         <div className="border-t border-border/30 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
           <p className="text-foreground/60 text-sm">
-            © 2024 SDR_DESIGNER. All rights reserved.
+            © 2025 SDR_DESIGNER. All rights reserved.
           </p>
           
           <div className="flex items-center gap-6">
@@ -52,17 +54,22 @@ const Footer = () => {
               href="https://www.instagram.com/sdr_designer25/" 
               target="_blank" 
               rel="noopener noreferrer"
-              className="text-foreground/60 hover:text-primary transition-colors"
+              className="flex items-center gap-2 text-foreground/60 hover:text-primary transition-colors"
             >
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="lucide lucide-instagram"><rect width="20" height="20" x="2" y="2" rx="5" ry="5"/><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/><line x1="17.5" x2="17.51" y1="6.5" y2="6.5"/></svg>
               Instagram
             </a>
             <a 
               href="mailto:surendarb799@gmail.com"
-              className="text-foreground/60 hover:text-primary transition-colors"
+              className="flex items-center gap-2 text-foreground/60 hover:text-primary transition-colors"
             >
+              <Mail className="w-5 h-5" />
               Email
             </a>
-            <span className="text-foreground/60">6383528117</span>
+            <a href="tel:6383528117" className="flex items-center gap-2 text-foreground/60 hover:text-primary transition-colors">
+              <Phone className="w-5 h-5" />
+              6383528117
+            </a>
           </div>
         </div>
       </div>

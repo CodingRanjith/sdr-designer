@@ -1,3 +1,16 @@
+/* Modal and image pop animation for Portfolio */
+.scale-in {
+  opacity: 1 !important;
+  transform: scale(1) !important;
+  transition: all 0.3s cubic-bezier(.4,2,.6,1);
+}
+.animate-img-pop {
+  animation: img-pop 0.4s cubic-bezier(.4,2,.6,1);
+}
+@keyframes img-pop {
+  0% { transform: scale(0.7); opacity: 0; }
+  100% { transform: scale(1); opacity: 1; }
+}
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
