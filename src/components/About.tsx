@@ -13,7 +13,7 @@ const About = () => {
           {/* Left: Profile Image Only */}
           <div className="flex justify-center lg:justify-start items-center">
             <div className="relative w-100 h-100 md:w-150 md:h-150 flex items-center justify-center rounded-full bg-gradient-to-tr from-[#6a5af9]/60 to-[#a685fa]/40 shadow-2xl">
-              <img src={profileImg} alt="Profile" className="w-100 h-100 md:w-150 md:h-150 z-10" />
+              <img src={profileImg} alt="Profile" className="w-100 h-100 md:w-150 md:h-120 z-10" />
             </div>
           </div>
           {/* Right: About Content */}
