@@ -1,3 +1,18 @@
+import { BadgePercent, Palette, MonitorPlay, Megaphone, PenTool, Image, Layers } from "lucide-react";
+
+const categoryIcons = [
+  <Palette className="w-8 h-8 text-primary" />, // Branding & Identity
+  <MonitorPlay className="w-8 h-8 text-secondary" />, // Digital & Social Media
+  <Megaphone className="w-8 h-8 text-accent" /> // Marketing & Advertising
+];
+
+const coreServiceIcons = [
+  <PenTool className="w-5 h-5 mr-2 text-primary inline" />, // Logo Design
+  <Image className="w-5 h-5 mr-2 text-secondary inline" />, // Poster Design
+  <Layers className="w-5 h-5 mr-2 text-accent inline" />, // Banner Design
+  <BadgePercent className="w-5 h-5 mr-2 text-primary inline" /> // Brand Identity Packages
+];
+
 const Skills = () => {
   const skillCategories = [
     {
@@ -40,9 +55,7 @@ const Skills = () => {
               <div className={`w-16 h-16 rounded-2xl mb-6 flex items-center justify-center 
                 ${category.color === 'primary' ? 'bg-primary/20' : 
                   category.color === 'secondary' ? 'bg-secondary/20' : 'bg-accent/20'}`}>
-                <div className={`w-8 h-8 rounded-lg 
-                  ${category.color === 'primary' ? 'bg-primary' : 
-                    category.color === 'secondary' ? 'bg-secondary' : 'bg-accent'}`}></div>
+                {categoryIcons[index]}
               </div>
 
               <h3 className="text-2xl font-bold mb-6 group-hover:text-primary transition-colors">
@@ -55,9 +68,9 @@ const Skills = () => {
                     key={skillIndex}
                     className="flex items-center gap-3 text-foreground/80 hover:text-foreground transition-colors"
                   >
-                    <div className={`w-2 h-2 rounded-full 
+                    <span className={`w-2 h-2 rounded-full 
                       ${category.color === 'primary' ? 'bg-primary' : 
-                        category.color === 'secondary' ? 'bg-secondary' : 'bg-accent'}`}></div>
+                        category.color === 'secondary' ? 'bg-secondary' : 'bg-accent'}`}></span>
                     <span>{skill}</span>
                   </li>
                 ))}
@@ -74,9 +87,9 @@ const Skills = () => {
               {["Logo Design", "Poster Design", "Banner Design", "Brand Identity Packages"].map((service, index) => (
                 <span 
                   key={index}
-                  className="glass-card px-6 py-3 rounded-full text-sm font-medium glow-border hover:scale-105 transition-all duration-300"
+                  className="glass-card px-6 py-3 rounded-full text-sm font-medium glow-border hover:scale-105 transition-all duration-300 flex items-center justify-center"
                 >
-                  {service}
+                  {coreServiceIcons[index]}{service}
                 </span>
               ))}
             </div>
@@ -85,6 +98,6 @@ const Skills = () => {
       </div>
     </section>
   );
-};
+}
 
 export default Skills;

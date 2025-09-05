@@ -8,10 +8,55 @@ interface Ripple {
   id: number;
 }
 
+
+const COLORS = [
+  "#f472b6", // pink
+  "#60a5fa", // blue
+  "#facc15", // yellow
+  "#34d399", // green
+  "#a78bfa", // purple
+  "#fb7185", // rose
+  "#38bdf8", // sky
+];
+
+interface Bubble {
+  x: number;
+  y: number;
+  color: string;
+  size: number;
+  id: number;
+}
+
 const Hero = () => {
   const heroRef = useRef<HTMLDivElement>(null);
   const mouseRef = useRef({ x: 0, y: 0 });
   const [ripples, setRipples] = useState<Ripple[]>([]);
+  const [bubbles, setBubbles] = useState<Bubble[]>([]);
+  // Multiple trailing bubbles following the cursor
+  useEffect(() => {
+    const handleMouseMove = (e: MouseEvent) => {
+      if (!heroRef.current) return;
+      const rect = heroRef.current.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      setBubbles(prev => {
+        const newBubble: Bubble = {
+          x,
+          y,
+          color: COLORS[Math.floor(Math.random() * COLORS.length)],
+          size: 40 + Math.random() * 40,
+          id: Date.now() + Math.random(),
+        };
+        // Keep only the last 8 bubbles for a trailing effect
+        return [...prev.slice(-7), newBubble];
+      });
+    };
+    const current = heroRef.current;
+    if (current) {
+      current.addEventListener('mousemove', handleMouseMove);
+      return () => current.removeEventListener('mousemove', handleMouseMove);
+    }
+  }, []);
 
   useEffect(() => {
     const handleMouseMove = (e: MouseEvent) => {
@@ -90,12 +135,29 @@ const Hero = () => {
         backgroundPosition: 'center',
       }}
     >
-      {/* Animated background elements */}
-      <div className="absolute inset-0">
-        <div className="parallax-element absolute top-1/4 left-1/4 w-32 h-32 bg-primary/20 rounded-full blur-xl animate-float"></div>
-        <div className="parallax-element absolute top-3/4 right-1/4 w-24 h-24 bg-secondary/20 rounded-full blur-xl animate-float" style={{animationDelay: '2s'}}></div>
-        <div className="parallax-element absolute top-1/2 left-3/4 w-20 h-20 bg-accent/20 rounded-full blur-xl animate-float" style={{animationDelay: '4s'}}></div>
-      </div>
+  {/* Background elements removed for static text */}
+
+
+      {/* Mouse-following colorful bubbles */}
+      {bubbles.map((bubble) => (
+        <div
+          key={bubble.id}
+          className="pointer-events-none fixed z-30"
+          style={{
+            left: bubble.x,
+            top: bubble.y,
+            width: bubble.size,
+            height: bubble.size,
+            background: bubble.color,
+            opacity: 0.18,
+            borderRadius: '50%',
+            filter: 'blur(10px)',
+            transform: 'translate(-50%, -50%)',
+            pointerEvents: 'none',
+            transition: 'left 0.12s, top 0.12s, background 0.2s',
+          }}
+        />
+      ))}
 
       {/* Water ripple effects */}
       {ripples.map((ripple) => (
@@ -112,24 +174,19 @@ const Hero = () => {
         </div>
       ))}
 
-      {/* Hero content */}
-      <div className="container mx-auto px-6 text-center z-10">
-        <div className="parallax-element animate-bounce-in">
-          <h1 className="text-6xl md:text-8xl font-black mb-6">
-            <span className="gradient-text">SURENDAR B</span>
-          </h1>
-          <h2 className="text-2xl md:text-4xl font-bold mb-8 text-foreground/90">
-            SDR_DESIGNER
-          </h2>
-        </div>
-        
-        <div className="parallax-element animate-bounce-in" style={{animationDelay: '0.2s'}}>
-          <p className="text-xl md:text-2xl mb-12 text-foreground/80 max-w-4xl mx-auto">
-            "Where creativity meets clarity. Unleash your brand's visual potential."
-          </p>
-        </div>
 
-        <div className="parallax-element animate-bounce-in flex flex-col sm:flex-row gap-6 justify-center" style={{animationDelay: '0.4s'}}>
+      {/* Hero content - static, no text animation */}
+      <div className="container mx-auto px-6 text-center z-10">
+        <h1 className="text-6xl md:text-8xl font-black mb-6">
+          <span className="gradient-text">SURENDAR B</span>
+        </h1>
+        <h2 className="text-2xl md:text-4xl font-bold mb-8 text-foreground/90">
+          SDR_DESIGNER
+        </h2>
+        <p className="text-xl md:text-2xl mb-12 text-foreground/80 max-w-4xl mx-auto">
+          "Where creativity meets clarity. Unleash your brand's visual potential."
+        </p>
+        <div className="flex flex-col sm:flex-row gap-6 justify-center">
           <Button 
             onClick={scrollToWorks}
             size="lg"
@@ -146,9 +203,8 @@ const Hero = () => {
             Hire Me
           </Button>
         </div>
-
         {/* Floating taglines */}
-        <div className="parallax-element absolute bottom-20 left-1/2 transform -translate-x-1/2 animate-bounce-in" style={{animationDelay: '0.6s'}}>
+        <div className="absolute bottom-20 left-1/2 transform -translate-x-1/2">
           <div className="flex flex-wrap justify-center gap-4 text-sm text-foreground/60">
             <span className="glass-card px-4 py-2 rounded-full">Innovate. Create. Captivate.</span>
             <span className="glass-card px-4 py-2 rounded-full">Make your mark with style!</span>

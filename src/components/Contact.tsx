@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { Mail, Phone, Instagram } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -105,7 +106,7 @@ const Contact = () => {
               <div className="space-y-6">
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-primary/20 rounded-full flex items-center justify-center">
-                    <div className="w-6 h-6 bg-primary rounded-full"></div>
+                    <Phone className="w-6 h-6 text-primary" />
                   </div>
                   <div>
                     <p className="font-semibold">Phone</p>
@@ -115,7 +116,7 @@ const Contact = () => {
                 
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-secondary/20 rounded-full flex items-center justify-center">
-                    <div className="w-6 h-6 bg-secondary rounded-full"></div>
+                    <Mail className="w-6 h-6 text-secondary" />
                   </div>
                   <div>
                     <p className="font-semibold">Email</p>
@@ -125,7 +126,7 @@ const Contact = () => {
                 
                 <div className="flex items-center gap-4">
                   <div className="w-12 h-12 bg-accent/20 rounded-full flex items-center justify-center">
-                    <div className="w-6 h-6 bg-accent rounded-full"></div>
+                    <Instagram className="w-6 h-6 text-accent" />
                   </div>
                   <div>
                     <p className="font-semibold">Instagram</p>

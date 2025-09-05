@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
+import logoImg from "@/assets/su_logo.png";
 
 const Header = () => {
   const [isScrolled, setIsScrolled] = useState(false);
@@ -23,8 +24,8 @@ const Header = () => {
       }`}
     >
       <nav className="container mx-auto px-6 flex items-center justify-between">
-        <div className="text-2xl font-bold gradient-text">
-          SDR_DESIGNER
+        <div className="flex items-center gap-3">
+          <img src={logoImg} alt="SDR Logo" className="max-h-12 h-auto w-56 object-contain" />
         </div>
         
         <div className="hidden md:flex items-center space-x-8">

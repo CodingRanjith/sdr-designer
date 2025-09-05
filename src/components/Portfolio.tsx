@@ -165,10 +165,10 @@ const Portfolio = () => {
             <button
               key={category.id}
               onClick={() => setActiveCategory(category.id)}
-              className={`glass-card px-6 py-3 rounded-full font-medium transition-all duration-300 hover:scale-105 ${
+              className={`glass-card px-6 py-3 rounded-full font-medium transition-all duration-300 hover:scale-105 relative overflow-hidden ${
                 activeCategory === category.id 
-                  ? 'glow-border gradient-text' 
-                  : 'text-foreground/70 hover:text-foreground'
+                  ? 'glow-border text-black font-bold' 
+                  : 'text-foreground/70'
               }`}
             >
               {category.label} ({category.count})
